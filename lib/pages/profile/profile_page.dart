@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamentos/models/users_model.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var profileSelected = ModalRoute.of(context)!.settings.arguments as Map;
+    var profileSelected = ModalRoute.of(context)!.settings.arguments as UsersModel;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(profileSelected['name']),
+        title: Text(profileSelected.name),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [],
@@ -42,7 +43,7 @@ class ProfilePage extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 32,
                             backgroundImage: NetworkImage(
-                              profileSelected['image'],
+                              profileSelected.image,
                             ),
                           ),
                         ),
@@ -50,29 +51,29 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
-                      child: Text(profileSelected['name']),
+                      child: Text(profileSelected.name),
                     )
                   ],
                 ),
                 const Spacer(),
                 Column(
-                  children: const [
-                    Text('22', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Publicações'),
+                  children: [
+                    Text(profileSelected.posts.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const Text('Publicações'),
                   ],
                 ),
                 const Spacer(),
                 Column(
-                  children: const [
-                    Text('326', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Seguidores'),
+                  children: [
+                    Text(profileSelected.followers.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const Text('Seguidores'),
                   ],
                 ),
                 const Spacer(),
                 Column(
-                  children: const [
-                    Text('917', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Seguindo'),
+                  children: [
+                    Text(profileSelected.following.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const Text('Seguindo'),
                   ],
                 ),
                 const SizedBox(
@@ -84,11 +85,10 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.only(left: 15.0, top: 5.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                    'Essa é minha bio\nVerifque as últimas fotos!\nParcerias: parceria@gmail.com'),
+                child: Text('Essa é minha bio\nVerifque as últimas fotos!\nParcerias: parceria@gmail.com'),
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
